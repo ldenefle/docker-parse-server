@@ -192,10 +192,17 @@ if(liveQuery) {
         return entry.trim();
     });
     console.log("LIVEQUERY_CLASSES: " + liveQueryClasses);
-
-    liveQueryParam = {
-        classNames: liveQueryClasses
-    };
+    if(process.env.REDIS_URL){
+      liveQueryParam = {
+          classNames: liveQueryClasses,
+          redisURL: process.env.REDIS_URL
+        };
+      }
+      else {
+        liveQueryParam = {
+          classNames: liveQueryClasses,
+        };
+      }
 }
 
 var databaseOptions = {};
@@ -222,6 +229,12 @@ for (var env in process.env) {
     }
 }
 
+if (process.env.REVOKE_SESSION) {
+    revoke = true;
+}
+else {
+  revoke = false;
+}
 var api = new ParseServer({
     databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
     databaseOptions: databaseOptions,
@@ -252,7 +265,7 @@ var api = new ParseServer({
     publicServerURL: process.env.PUBLIC_SERVER_URL,
     liveQuery: liveQueryParam,
     logLevel: process.env.LOG_LEVEL || 'info',
-    revokeSessionOnPasswordReset : false
+    revokeSessionOnPasswordReset : revoke
     //customPages: process.env.CUSTOM_PAGES || // {
     //invalidLink: undefined,
     //verifyEmailSuccess: undefined,
