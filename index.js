@@ -252,7 +252,7 @@ var api = new ParseServer({
     publicServerURL: process.env.PUBLIC_SERVER_URL,
     liveQuery: liveQueryParam,
     logLevel: process.env.LOG_LEVEL || 'info',
-    revokeSessionOnPasswordReset : process.env.REVOKE_SESSION_ON_PASS_RESET
+    revokeSessionOnPasswordReset : false
     //customPages: process.env.CUSTOM_PAGES || // {
     //invalidLink: undefined,
     //verifyEmailSuccess: undefined,
