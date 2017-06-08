@@ -251,7 +251,8 @@ var api = new ParseServer({
     appName: process.env.APP_NAME,
     publicServerURL: process.env.PUBLIC_SERVER_URL,
     liveQuery: liveQueryParam,
-    logLevel: process.env.LOG_LEVEL || 'info'
+    logLevel: process.env.LOG_LEVEL || 'info',
+    revokeSessionOnPasswordReset : process.env.REVOKE_SESSION_ON_PASS_RESET
     //customPages: process.env.CUSTOM_PAGES || // {
     //invalidLink: undefined,
     //verifyEmailSuccess: undefined,
@@ -305,7 +306,7 @@ console.log('schemaURL :', schemaURL);
 
 if(isSupportGraphQL){
     console.log('Starting GraphQL...');
-    
+
     var IS_DEVELOPMENT = process.env.NODE_ENV !== 'production';
 
     function getSchema() {
